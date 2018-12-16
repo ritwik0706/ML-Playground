@@ -19,14 +19,12 @@ training_set[-3] = scale(training_set[-3])
 test_set[-3] = scale(test_set[-3])
 
 # Fitting classifier to the Training set
-library(e1071)
-classifier = svm(formula = Purchased ~ .,
-                 data = training_set,
-                 type = 'C-classification',
-                 kernel = 'radial')
+library(rpart)
+classifier = rpart(formula = Purchased ~ .,
+                   data = training_set)
 
 # Predicting the Test set results
-y_pred = predict(classifier, newdata = test_set[-3])
+y_pred = predict(classifier, newdata = test_set[-3], type = "class")
 
 # Making the Confusion Matrix
 cm = table(test_set[, 3], y_pred)
